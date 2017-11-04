@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "babel-node": "babel-node --presets=env",
-    "start": "nodemon --exec npm run babel-node -- ./src/bot.js 8081"
+    "babel-node": "babel-node --presets env --inspect",
+    "dev": "nodemon --exec npm run babel-node -- ./src/bot.js 8081",
+    "lint": "eslint src",
+    "build": "npm run lint && babel ./src -d ./dist --presets env",
+    "serve": "node ./dist/bot.js"
   },
   "keywords": [],
   "author": "",
