@@ -3,6 +3,7 @@ import Discord from 'discord.js'
 import config from './config.js'
 import axios from 'axios'
 import capitalize from 'lodash/capitalize'
+import {} from 'colors'
 
 const ax = axios.create({
   baseURL: 'http://de.wikipedia.org/api/rest_v1/',
@@ -49,7 +50,13 @@ const commands = {
           const message = result.extract // `${result.extract}\n\nhttp://de.wikipedia.org/wiki/${result.title.replace(' ', '_')}`
           channel.send(message, thumbnail)
         })
-        .catch(err => console.error(err))
+        .catch(err => {
+          if (err.response.status === 404) {
+            channel.send(`*Kein Artikel zum Suchbegriff "${query}" gefunden.*`)
+          } else {
+            console.error(err.response)
+          }
+        })
     }
   }
 }
@@ -58,10 +65,12 @@ bot
   .on('ready', () => {
     let serverList = []
     for (var server of bot.guilds.values()) {
-      serverList.push('  ' + server.name)
+      serverList.push(' » ' + server.name)
     }
     let readyAt = bot.readyAt.toLocaleTimeString()
-    console.log(`[${readyAt}] Successfully connected to the following servers:\n${serverList.join('\n')}`)
+    console.log(` CONNECTED `.bgGreen.black +
+      ` [${readyAt}] Successfully connected to the following servers:`.green +
+      `\n${serverList.join('\n')}`.green)
   })
   //
   .on('message', message => {
