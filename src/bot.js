@@ -23,16 +23,13 @@ function parseCommand (message) {
   return [command, params]
 }
 
+function isValidCommand (cmd, params) {
+  return (
+    params.length >= cmd.minParams
+  )
+}
+
 const commands = {
-  test: {
-    usage (channel) {
-      channel.send(`**Usage:** !test <a> <b> <c>`)
-    },
-    minParams: 3,
-    execute (channel, [a, b, c], ...rest) {
-      channel.send(`${a} + ${b} + ${c} = ${a + b + c}`)
-    }
-  },
   wiki: {
     usage (channel) {
       channel.send(`**Usage:** !wiki <search term>`)
@@ -55,12 +52,6 @@ const commands = {
         .catch(err => console.error(err))
     }
   }
-}
-
-function isValidCommand (cmd, params) {
-  return (
-    params.length >= cmd.minParams
-  )
 }
 
 bot
