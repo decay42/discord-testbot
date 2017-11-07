@@ -1,3 +1,5 @@
 export default {
-  token: 'MzcyMzEyNTgwODAwMTE4Nzg1.DNCWyQ.voTkQuh_cpF_H1c6-GjrPq9esKs'
+  // you should set your token in a .env file with TOKEN=yourToken, but you can
+  // put it here, although it is strongly advised not to
+  token: process.env.TOKEN || 'yourTokenHere'
 }
