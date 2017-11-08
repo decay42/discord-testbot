@@ -74,7 +74,7 @@ bot
   })
   //
   .on('message', message => {
-    if (message.author.id === bot.user.id) {
+    if (message.author.bot) {
       return // always ignore self-messages
     }
     if (message.content.startsWith('!')) {
